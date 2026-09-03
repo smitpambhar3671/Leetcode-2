@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool canTransform(string start, string result) {
+        string a = "";
+        string b = "";
+
+        // Remove X
+        for (char ch : start) {
+            if (ch != 'X')
+                a += ch;
+        }
+
+        for (char ch : result) {
+            if (ch != 'X')
+                b += ch;
+        }
+
+        // Order of L and R must be same
+        if (a != b)
+            return false;
+
+        int i = 0, j = 0;
+
+        while (i < start.length() && j < result.length()) {
+
+            // Find next non-X character in start
+            while (i < start.length() && start[i] == 'X')
+                i++;
+
+            // Find next non-X character in result
+            while (j < result.length() && result[j] == 'X')
+                j++;
+
+            if (i == start.length() || j == result.length())
+                break;
+
+            // L can only move left
+            if (start[i] == 'L' && i < j)
+                return false;
+
+            // R can only move right
+            if (start[i] == 'R' && i > j)
+                return false;
+
+            i++;
+            j++;
+        }
+
+        return true;
+    }
+};
